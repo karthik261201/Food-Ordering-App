@@ -1,5 +1,9 @@
 // Basic way of creating HTML content
 // const heading = React.createElement("h1", { id: "heading" }, "Hello World!! from React")
+
+import React from "react"
+import ReactDOM from "react-dom/client"
+
 const parent = React.createElement("div", { id: "parent" }, [
     React.createElement("div", { id: "child-1" }, [
         React.createElement("h1", {}, "C1 H1 Tag"),

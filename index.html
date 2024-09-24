@@ -10,10 +10,12 @@
 
 <body>
     <div id="root"></div>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- using cdn link to set up react in the project -->
+    <!-- <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script> -->
 
-    <script src="./App.js"></script>
+    <!-- since we are using react from node modules the app.js wont be a normal js file so thats why we use type=module -->
+    <script type="module" src="./App.js"></script>
 </body>
 
 </html>
