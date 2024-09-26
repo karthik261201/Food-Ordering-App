@@ -44,14 +44,17 @@
 - Named Export/Import
     - export const Component; import {Component} from "path";
 
-React Hooks
-(Normal JS utility functions)
+# React Hooks - (Normal JS utility functions)
 
-useState() - Superpowerful State Variables in react
-useEffect()
-2 types Routing in web apps
-Client Side Routing
-Server Side Routing
+- useState() - Superpowerful State Variables in react
+- useEffect()
+
+# Routing in web apps
+
+- 2 types
+    - Client Side Routing => only has one page just changes component while navigation to page
+    - Server Side Routing => for each navigation page gets reloaded by fetching it from server
+
 Redux Toolkit
 Install @reduxjs/toolkit and react-redux
 Build our store
