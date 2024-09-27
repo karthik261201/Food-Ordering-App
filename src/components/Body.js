@@ -2,6 +2,9 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
+
+// Chunking, Code splitting, Dynamic bundling, Lazy Loading
 
 const Body = () => {
     const [listOfRestaurants, setListOfRestraunt] = useState([]);
@@ -18,6 +21,10 @@ const Body = () => {
         setListOfRestraunt(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
         setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     }
+
+    const onlineStaus = useOnlineStatus();
+    console.log(onlineStaus)
+    if (onlineStaus === false) return (<h1>You are Offline</h1>);
 
     return listOfRestaurants.length === 0 ? <Shimmer /> : (
         <div className="body">
