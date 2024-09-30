@@ -55,13 +55,14 @@
     - Client Side Routing => only has one page just changes component while navigation to page
     - Server Side Routing => for each navigation page gets reloaded by fetching it from server
 
-Redux Toolkit
-Install @reduxjs/toolkit and react-redux
-Build our store
-Connect our store to our app
-Slice (cartSlice)
-dispatch(action)
-Selector
+# Redux Toolkit
+- Install @reduxjs/toolkit and react-redux
+- Build our store
+- Connect our store to our app
+- Slice (cartSlice)
+- dispatch(action)
+- Selector
+
 Types of testing (devloper)
 Unit Testing
 Integration Testing
