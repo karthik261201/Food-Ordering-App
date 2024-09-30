@@ -15,7 +15,7 @@ class UserClass extends React.Component {
     async componentDidMount() {
         const data = await fetch("https://api.github.com/users/akshaymarch7")
         const json = await data.json()
-        console.log(json)
+        // console.log(json)
 
         this.setState({
             userInfo: json
@@ -23,11 +23,11 @@ class UserClass extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log("Component did Update")
+        // console.log("Component did Update")
     }
 
     componentWillUnmount() {
-        console.log("Component will unmount")
+        // console.log("Component will unmount")
     }
 
     render() {

@@ -1,8 +1,9 @@
-import RestaurantCard from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import RestaurantCard, { withInfolabel } from "./RestaurantCard";
+import { useEffect, useState, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 // Chunking, Code splitting, Dynamic bundling, Lazy Loading
 
@@ -10,6 +11,8 @@ const Body = () => {
     const [listOfRestaurants, setListOfRestraunt] = useState([]);
     const [filteredRestaurant, setFilteredRestaurant] = useState([])
     const [searchText, setSearchText] = useState("")
+
+    const RestaurantCardWithInfo = withInfolabel(RestaurantCard)
 
     useEffect(() => {
         fetchData();
@@ -22,41 +25,59 @@ const Body = () => {
         setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     }
 
+    // console.log(listOfRestaurants)
+
     const onlineStaus = useOnlineStatus();
-    console.log(onlineStaus)
+    // console.log(onlineStaus)
     if (onlineStaus === false) return (<h1>You are Offline</h1>);
+
+    const { loggedInUser, setUserName } = useContext(UserContext);
 
     return listOfRestaurants.length === 0 ? <Shimmer /> : (
         <div className="body">
-            <div className="filter">
-                <div className="search">
-                    <input type="text" className="search-box" value={searchText} onChange={(e) => {
+            <div className="flex">
+                <div className="m-4 p-4">
+                    <input type="text" className="border border-solid border-black" value={searchText} onChange={(e) => {
                         setSearchText(e.target.value)
                     }} />
-                    <button onClick={() => {
+                    <button className="px-4 py-2 bg-green-100 m-4 rounded-xl" onClick={() => {
                         const filteredRestaurant = listOfRestaurants.filter(
                             (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())
                         )
                         setFilteredRestaurant(filteredRestaurant)
                     }}>Search</button>
                 </div>
-                <button
-                    className="filter-btn"
-                    onClick={() => {
-                        const filteredList = listOfRestaurants.filter(
-                            (res) => res.info.avgRating > 4
-                        );
-                        console.log(filteredList);
-                        setFilteredRestaurant(filteredList);
-                    }}
-                >
-                    Top Rated Restaurants
-                </button>
+                <div className="m-4 p-4 flex items-center">
+                    <button
+                        className="px-4 py-2 bg-gray-100 rounded-xl"
+                        onClick={() => {
+                            const filteredList = listOfRestaurants.filter(
+                                (res) => res.info.avgRating > 4
+                            );
+                            console.log(filteredList);
+                            setFilteredRestaurant(filteredList);
+                        }}
+                    >
+                        Top Rated Restaurants
+                    </button>
+                </div>
+                <div className="search m-4 p-4 flex items-center">
+                    <label>UserName : </label>
+                    <input
+                        className="border border-black p-2"
+                        value={loggedInUser}
+                        onChange={(e) => setUserName(e.target.value)}
+                    />
+                </div>
             </div>
-            <div className="res-container">
+            <div className="flex flex-wrap">
                 {
                     filteredRestaurant.map((restaurant) => {
-                        return <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}><RestaurantCard resData={restaurant} /></Link>
+                        return <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
+                            {
+                                restaurant.info.aggregatedDiscountInfoV3 ? (<RestaurantCardWithInfo resData={restaurant} />) : <RestaurantCard resData={restaurant} />
+                            }
+                        </Link>
                     })
                 }
             </div>
